@@ -1,0 +1,16 @@
+torch
+torchvision
+opencv-python
+matplotlib
+pandas
+transformers
+clip
+gradio
+scikit-learn
+pyyaml
+qdrant_client
+openai-clip
+milvus
+scikit-image
+flask
+pymilvus

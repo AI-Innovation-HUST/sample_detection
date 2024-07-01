@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if images %}
+        <ul>
+        {% for file_name in images %}
+            <li>{{ file_name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No images found</p>
+    {% endif %}
+    <a href="{{ url_for('search') }}">Back to Search</a>
+</body>
+</html>

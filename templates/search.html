@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+</head>
+<body>
+    <h1>Search Images</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="image">Upload Image:</label>
+        <input type="file" name="image" required>
+        <label for="id_object">Object ID:</label>
+        <input type="number" name="id_object" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if results %}
+        <h2>Search Results</h2>
+        <ul>
+        {% for file_name in results %}
+            <li>{{ file_name }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
