@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Sub-Object</title>
+</head>
+<body>
+    <h1>Add Sub-Object</h1>
+    <form method="post">
+        <label for="folder_path">Folder Path:</label>
+        <input type="text" id="folder_path" name="folder_path" required>
+        <br>
+        <label for="id_object">Object ID:</label>
+        <input type="number" id="id_object" name="id_object" required>
+        <br>
+        <label for="need">Need:</label>
+        <select id="need" name="need">
+            <option value="True">Yes</option>
+            <option value="False">No</option>
+        </select>
+        <br>
+        <button type="submit">Add Sub-Object</button>
+    </form>
+    <p>{{ message }}</p>
+</body>
+</html>
