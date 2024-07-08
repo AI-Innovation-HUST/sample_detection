@@ -55,7 +55,7 @@ class Pipeline():
         
     def preprocess_seg(self,image:np.ndarray):
         # image = Image.fromarray(image).convert("RGB")
-        im_tensor = torch.tensor(image, dtype=torch.float32).permute(2,0,1)
+        im_tensor = torch.tensor(image, dtype=torch.float32).permute(2,0,1).to(self.device)
         im_tensor = F.upsample(torch.unsqueeze(im_tensor,0), self.input_size, mode="bilinear").type(torch.uint8)
         image_ = torch.divide(im_tensor,255.0)
         image_ = normalize(image_,[0.5,0.5,0.5],[1.0,1.0,1.0])
@@ -91,11 +91,12 @@ class Pipeline():
             image_features=torch.squeeze(image_features,0)
             output=image_features.detach().cpu().numpy()
             output=output.tolist() # dim 512
+        torch.cuda.empty_cache()        
         return output
     
 # if __name__ == "__main__":
-#     pipe = Pipeline(model_path="saved_models\\isnet-general-use.pth")
-#     img = cv2.imread("AI_test\\1\\2024_06_26_17_24_IMG_1591.JPG")
+#     pipe = Pipeline(model_path="saved_models/isnet-general-use.pth")
+#     img = cv2.imread("/home/truongan/sample_detection/AI_test/1/2024_06_26_17_24_IMG_1592.JPG")
 #     output = pipe.extract_emb(img)
 #     print((output))
     

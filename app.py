@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+import torch
 from PIL import Image
 from flask import Flask, request, render_template, redirect, url_for
 from milvus_helpers import connect_milvus, create_collection, insert_data, search_data, list_collections, drop_collection
@@ -12,7 +13,7 @@ app = Flask(__name__)
 connect_milvus()
 
 # Tạo pipeline trích xuất đặc trưng
-pipe = Pipeline(model_path="saved_models\\isnet-general-use.pth")
+pipe = Pipeline(model_path="saved_models/isnet-general-use.pth")
 
 # Trang chính
 @app.route('/')
@@ -85,6 +86,11 @@ def query_image(image, id_object, top_k=1):
     results = search_data(collection, embedding, top_k)
     matched_files = [result.entity.get("file_name") for result in results[0]]
     return matched_files
+
+
+@app.teardown_appcontext
+def cleanup(exception=None):
+    torch.cuda.empty_cache()
 
 if __name__ == "__main__":
     app.run(debug=True)
